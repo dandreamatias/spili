@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <spili-button>Hi</spili-button>
+  <spili-button>hello</spili-button>
+  <spili-button>wow</spili-button>
+  <hr>
+  <spili-dropdown id="dropdown" default-label="select"></spili-dropdown>
+</body>
+<script type="module">
+  import './dropdown.js';
+  import './button.js';
+
+  const dropdown = document.getElementById('dropdown');
+  dropdown.options = [{value: 1, label: 'one'}, {value: 2, label: 'two'},{value: 3, label: 'three'}, {value: 4, label: 'four'}, {value: 1, label: 'one'}, {value: 2, label: 'two'},{value: 3, label: 'three'}, {value: 4, label: 'four'}];
+  dropdown.addEventListener('onSelectChange',({detail}) => console.log(detail));
+</script>
+</html>
