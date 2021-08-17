@@ -1,0 +1,14 @@
+{
+  "title": "Spili",
+  "description": "A perfect platoform for microbloggin",
+  "home": "/",
+  "highlight-articles": [],
+  "pagination": false,
+  "build": {
+    "output": "dist",
+    "ignore": ["welcome-to-spili.md"],
+    "optimize-images": true,
+    "minify-html": true,
+    "minify-css": true
+  } 
+}
