@@ -1,8 +1,9 @@
 ----
-postTitle: Welcome to Spili! <small>🎉</small>
-postDate: 12/08/2021
-postDescription: This article it's a good starting point if you are a new user. Learn how to create articles, modify the blog title, customize the template and how to build your new blog. Let's become a Spili bloggin master!
+articleTitle: Welcome to Spili! <small>🎉</small>
+articleDate: 19/08/2021
+articleDescription: This article it's a good starting point if you are a new user. Learn how to create articles, modify the blog title, customize the template and how to build your new blog. Let's become a Spili bloggin master!
 ----
+
 
 This article it's only a getting started, when you are confortable with these basic notions simply delete the `welcome-to-spili.md` file  inside the articles folder. If you wanna know more about Spili visit the official [documentation](#asd) page. 
 
@@ -39,3 +40,6 @@ You can find a spili.json file at the root level, it's a file generated automati
 ## Build and deploy your blog on github 🚀
 
 Now that you have learned how to create articles and change the general informations it's time to build the blog! tipe `spili build` and a new folder called dist will appear. Copy and paste the content of the dist folder in your gh-pages branch on github and your blog will be online!
+
+<!-- <iframe title="github tutorial" style="max-width: 100%; margin: 1rem 0; aspect-ratio: 16/9;" src="https://www.youtube.com/embed/MUQfKFzIOeU" 
+frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->

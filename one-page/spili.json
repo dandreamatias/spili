@@ -2,9 +2,10 @@
 	"blogName": "Spili",
 	"blogDescription": "A perfect platoform for microbloggin",
   "highlightedArticles": [],
+  "copyright": "©spili 2021",
 	"build": {
 		"output": "dist",
 		"minifyCss": true,
-		"minifyHtml": true
+		"minifyHtml": false
 	}
 }

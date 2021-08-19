@@ -1,0 +1,21 @@
+{
+  "name": "one-page",
+  "version": "1.0.0",
+  "description": "",
+  "main": "node.js",
+  "scripts": {
+    "start": "nodemon node.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "marked": "2.1.3",
+    "minify": "^7.0.2"
+  },
+  "dependencies": {
+    "html-minifier": "^4.0.0",
+    "nodemon": "^2.0.12",
+    "socket.io": "^4.1.3"
+  }
+}

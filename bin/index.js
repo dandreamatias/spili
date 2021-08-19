@@ -7,7 +7,7 @@ const path = require('path');
 const fs = require('fs');
 
 yargs
-	.option('i', { alias: 'init', describe: 'initialize a new blog project', type: 'boolean', demandOption: true })
+	.option('n', { alias: 'new', describe: 'initialize a new blog project, type: spili -n your_blog_name', type: 'boolean', demandOption: true })
 	.option('serve', {
 		describe: 'open the blog with a local live server with hot-reload',
 		type: 'boolean',
