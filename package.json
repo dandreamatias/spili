@@ -1,11 +1,11 @@
 {
-	"name": "spili-blog",
-	"version": "0.0.1",
+	"name": "spili",
+	"version": "0.0.5",
 	"description": "a super fast static blog generator",
 	"main": "./bin/index.js",
+	"type": "commonjs",
 	"scripts": {
-		"start": "nodemon ./bin/index.js",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"start": "nodemon ./bin/index.js"
 	},
 	"repository": {
 		"type": "git",
@@ -17,7 +17,7 @@
 		"site",
 		"responsive"
 	],
-	"author": "Matias d'Andrea",
+	"author": "d'Andrea Matias",
 	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/dandreamatias/spili/issues"
