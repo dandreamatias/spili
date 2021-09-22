@@ -44,30 +44,3 @@ You can find a spili.json file at the root level, it's a file generated automati
 ## Build and deploy your blog on github 🚀
 
 Now that you have learned how to create articles and change the general informations it's time to build the blog! tipe `spili build` and a new folder called dist will appear. Copy and paste the content of the dist folder in your gh-pages branch on github and your blog will be online!
-
-<html-in-html>
-  <table class="table">
-    <thead class="table__head">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>age</th>
-      </tr>
-    </thead>
-    <tbody class="table__body">
-      <tr>
-        <td>123</td>
-        <td>John</td>
-        <td>Doe</td>
-        <td>27</td>
-      </tr>
-      <tr>
-        <td>43</td>
-        <td>Mario</td>
-        <td>Rossi</td>
-        <td>33</td>
-      </tr>
-    </tbody>
-  </table>
-</html-in-html>

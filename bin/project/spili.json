@@ -1,11 +1,17 @@
 {
 	"blogName": "Spili",
 	"blogDescription": "A perfect platoform for microbloggin",
-  "highlightedArticles": [],
-  "copyright": "©spili 2021",
+	"highlightedArticles": [],
+	"copyright": "©spili 2021",
+	"get": {
+		"todos": "https://jsonplaceholder.typicode.com/posts/",
+		"users": "https://jsonplaceholder.typicode.com/users/"
+	},
 	"build": {
 		"output": "dist",
+		"homePage": "index.html",
 		"minifyCss": true,
-		"minifyHtml": false
+		"minifyHtml": true,
+		"optimizeImages": true
 	}
 }
