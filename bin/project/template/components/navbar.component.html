@@ -1,0 +1,13 @@
+<nav class="nav">
+  <div class="nav-content">
+    <h1><a href="index.html">${spili.blogName}</a></h1>
+    ${ props.isHomePage ? `
+    <div id="search-btn">
+      <div class="search">
+        <div class="search__circle"></div>
+        <div class="search__rectangle"></div>
+      </div>
+    </div>
+    ` : `<a class="arrow-back" href="index.html">&#8592;</a>` }
+  </div>
+</nav>
