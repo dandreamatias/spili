@@ -1,14 +1,27 @@
-const fs = require('fs');
-const minify = require('html-minifier').minify;
-const path = require('path');
-const marked = require('marked');
+import * as fs from 'fs';
+import minify from 'html-minifier';
+import * as path from 'path';
+import marked from 'marked';
+import fetch from 'node-fetch';
 
-const build = () => {
+const useComponent = (spili) => (file, data) => {
+  const foo = new Function(
+    'props, spili',
+    'return ' +
+      '`' +
+      fs.readFileSync(path.join('template', 'components', `${file}.component.html`), 'utf8') +
+      '`'
+  );
+  return foo(data, spili);
+};
+
+export async function build() {
   function extractBody(data) {
     const headerStart = data.indexOf('|---\r') + 1;
     const headerEnd = data.indexOf('---|\r', headerStart);
     return marked(data.slice(headerEnd + 1).join(''));
   }
+
   function extractHeader(arr) {
     const headerStart = arr.indexOf('|---') + 1;
     const headerEnd = arr.indexOf('---|', headerStart);
@@ -39,17 +52,28 @@ const build = () => {
     return foo({ ...spiliInfo, ...obj });
   };
 
-  const readHome = () => {
+  const getData = async (data) => {
+    const promises = [];
+    Object.values(data).forEach((d) => promises.push(fetch(d)));
+    const res = (await Promise.all(promises)).map((r) => r.json());
+    const vals = await Promise.all(res);
+    return Object.keys(data).reduce((acc, d, index) => ({ ...acc, [d]: vals[index] }), {});
+  };
+
+  // read the index.html template
+  const readHome = async () => {
     const spiliInfo = JSON.parse(fs.readFileSync('spili.json', 'utf8'));
-    const articles = readFiles('articles').reduce((acc, obj) => {
-      acc += readPreview(obj, spiliInfo);
-      return acc;
-    }, '');
+    spiliInfo.articles = readFiles('articles');
+    spiliInfo.useComponent = useComponent(spiliInfo);
+    spiliInfo.data = await getData(spiliInfo.get);
+    delete spiliInfo.build;
+    delete spiliInfo.get;
+
     const foo = new Function(
-      '{blogName, blogDescription, copyright, articles}',
+      'spili',
       'return ' + '`' + fs.readFileSync(path.join('template', 'index.html'), 'utf8') + '`'
     );
-    return foo({ ...spiliInfo, articles });
+    return foo(spiliInfo);
   };
 
   const readArticle = (filePath) => {
@@ -68,11 +92,9 @@ const build = () => {
   if (!fs.existsSync(spiliJson.build.output)) {
     fs.mkdirSync(spiliJson.build.output);
   }
-  fs.writeFileSync(
-    path.join(spiliJson.build.output, 'index.html'),
-    minify(readHome(), { collapseWhitespace: true, conservativeCollapse: true }),
-    'utf8'
-  );
+  const home = await readHome();
+  // minify(home, { collapseWhitespace: true, conservativeCollapse: true }),
+  fs.writeFileSync(path.join(spiliJson.build.output, 'index.html'), home, 'utf8');
   const filenames = fs.readdirSync('static', (err) => {});
   filenames.forEach((filename) => {
     const arr = filename.split('.');
@@ -90,14 +112,13 @@ const build = () => {
   });
 
   const fileArticlesnames = fs.readdirSync('articles', (err) => {});
-  fileArticlesnames.forEach((filename) => {
-    const article = readArticle(path.join('articles', filename));
+  fileArticlesnames.forEach(async (filename) => {
+    const article = await readArticle(path.join('articles', filename));
+    // minify(article, { collapseWhitespace: true, conservativeCollapse: true }),
     fs.writeFileSync(
       path.join(spiliJson.build.output, filename.replace('md', 'html')),
-      minify(article, { collapseWhitespace: true, conservativeCollapse: true }),
+      article,
       'utf8'
     );
   });
-};
-
-module.exports = { build };
+}

@@ -1,15 +1,26 @@
-const chalk = require('chalk');
-const boxen = require('boxen');
-const fs = require('fs');
-const marked = require('marked');
-const path = require('path');
-const { Server } = require('socket.io');
-const express = require('express');
+import * as fs from 'fs';
+import * as marked from 'marked';
+import * as path from 'path';
+import { Server } from 'socket.io';
+import fetch from 'node-fetch';
+import express from 'express';
+
 const app = express();
 
 const MIME = {
   jpg: 'image/jpeg',
   ico: 'image/x-icon',
+};
+
+const useComponent = (spili) => (file, data) => {
+  const foo = new Function(
+    'props, spili',
+    'return ' +
+      '`' +
+      fs.readFileSync(path.join('template', 'components', `${file}.component.html`), 'utf8') +
+      '`'
+  );
+  return foo(data, spili);
 };
 
 function extractHeader(arr) {
@@ -41,26 +52,28 @@ const readFiles = (dirname) => {
   });
 };
 
-const readPreview = (obj, spiliInfo) => {
-  const foo = new Function(
-    '{blogName, blogDescription, copyright, articleDescription, articleDate, articleTitle, articleLink}',
-    'return ' + '`' + fs.readFileSync(path.join('template', 'article-preview.html'), 'utf8') + '`'
-  );
-  return foo({ ...spiliInfo, ...obj });
+const getData = async (data) => {
+  const promises = [];
+  Object.values(data).forEach((d) => promises.push(fetch(d)));
+  const res = (await Promise.all(promises)).map((r) => r.json());
+  const vals = await Promise.all(res);
+  return Object.keys(data).reduce((acc, d, index) => ({ ...acc, [d]: vals[index] }), {});
 };
 
 // read the index.html template
-const readHome = () => {
+const readHome = async () => {
   const spiliInfo = JSON.parse(fs.readFileSync('spili.json', 'utf8'));
-  const articles = readFiles('articles').reduce((acc, obj) => {
-    acc += readPreview(obj, spiliInfo);
-    return acc;
-  }, '');
+  spiliInfo.articles = readFiles('articles');
+  spiliInfo.useComponent = useComponent(spiliInfo);
+  spiliInfo.data = await getData(spiliInfo.get);
+  delete spiliInfo.build;
+  delete spiliInfo.get;
+
   const foo = new Function(
-    '{blogName, blogDescription, copyright, articles}',
+    'spili',
     'return ' + '`' + fs.readFileSync(path.join('template', 'index.html'), 'utf8') + '`'
   );
-  return foo({ ...spiliInfo, articles });
+  return foo(spiliInfo);
 };
 
 const readArticle = (filePath) => {
@@ -75,8 +88,8 @@ const readArticle = (filePath) => {
   return foo({ ...spiliInfo, ...header, articleBody: body });
 };
 
-const init = (port) => {
-  app.get('*', (req, res) => {
+export function init(port) {
+  app.get('*', async (req, res) => {
     const [url, ext] = req.url.split('.');
     try {
       if (req.url.includes('socket.io')) {
@@ -90,7 +103,8 @@ const init = (port) => {
       }
       if (req.url === '/index.html' || req.url === '/') {
         res.writeHead(200);
-        return res.write(readHome());
+        const home = await readHome();
+        return res.write(home);
       }
       if (ext && ext !== 'html' && !MIME[ext]) {
         res.writeHead(200);
@@ -109,14 +123,8 @@ const init = (port) => {
   });
 
   const server = app.listen(port, () => {
-    console.log(
-      boxen(chalk.red('\n' + "This is a development server, don't use it in production!" + '\n'), {
-        padding: 1,
-        borderColor: 'red',
-        dimBorder: true,
-      })
-    );
-    console.log(chalk.green('\n' + `server running on port: http://localhost:${port}` + '\n'));
+    console.error('\n' + "This is a development server, don't use it in production!" + '\n');
+    console.log('\n' + `server running on port: http://localhost:${port}` + '\n');
   });
 
   const io = new Server(server);
@@ -145,6 +153,4 @@ const init = (port) => {
       io.emit('refresh', { someProperty: 'some value', otherProperty: 'other value' });
     }
   });
-};
-
-module.exports = { init };
+}

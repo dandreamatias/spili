@@ -10,7 +10,7 @@ spili it's an opinioneted Static blog generator, starting a blog has never been 
 
 ### install
 
-`npm install --global spili`
+`npm install -g spili`
 
 ### inizialize a new blog
 
