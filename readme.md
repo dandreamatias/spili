@@ -10,24 +10,24 @@ spili it's an opinioneted Static blog generator, starting a blog has never been 
 
 ### install
 
-`npm install --global spili`
+`npm install -g spili`
 
 ### inizialize a new blog
 
-`spili -n <your-blog-name>` or `spili --new <your-blog-name>`
+`spili -n <your-blog-name>` or `spili new <your-blog-name>`
 
 ## start the project
 
 start a local server with hot Reaload
-`cd <your-blog-name> && spili --serve`
+`cd <your-blog-name> && spili serve`
 
-default port is: 3333 but you can use any port, simply specify the port after --serve
+default port is: 3333 but you can use any port, simply specify the port after serve
 
-`spili --serve 8080`
+`spili serve 8080`
 
 ## build the blog
 
-`spili --build`
+`spili build`
 
 ---
 

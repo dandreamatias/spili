@@ -1,8 +1,12 @@
-const utils = require('./utils.js');
-const path = require('path');
-const fs = require('fs');
+import * as utils from './utils.js';
+import * as path from 'path';
+import * as fs from 'fs';
+import { fileURLToPath } from 'url';
 
-const newProject = (projectName) => {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export function newProject(projectName) {
   utils.createFolder(path.join(projectName));
 
   utils.createFolder(path.join(projectName, 'template'));
@@ -29,8 +33,26 @@ const newProject = (projectName) => {
     (err) => {}
   );
   fileTemplatenames.forEach((filename) => {
-    const template = fs.readFileSync(path.join(__dirname, 'project', 'template', filename), 'utf8');
-    fs.writeFileSync(path.join(projectName, 'template', filename), template, 'utf8');
+    if (filename !== 'components') {
+      const template = fs.readFileSync(
+        path.join(__dirname, 'project', 'template', filename),
+        'utf8'
+      );
+      fs.writeFileSync(path.join(projectName, 'template', filename), template, 'utf8');
+    } else {
+      utils.createFolder(path.join(projectName, 'template', 'components'));
+      const fileComponentsnames = fs.readdirSync(
+        path.join(__dirname, 'project', 'template', 'components'),
+        (err) => {}
+      );
+      fileComponentsnames.forEach((cname) => {
+        const comp = fs.readFileSync(
+          path.join(__dirname, 'project', 'template', 'components', cname),
+          'utf8'
+        );
+        fs.writeFileSync(path.join(projectName, 'template', 'components', cname), comp, 'utf8');
+      });
+    }
   });
 
   // static
@@ -40,13 +62,11 @@ const newProject = (projectName) => {
     const arr = filename.split('.');
     const extension = arr[arr.length - 1];
     const utf8ext = (ext) => ext === 'html' || ext === 'js' || ext === 'css';
-    const static = fs.readFileSync(path.join(__dirname, 'project', 'static', filename));
+    const staticAssets = fs.readFileSync(path.join(__dirname, 'project', 'static', filename));
     fs.writeFileSync(
       path.join(projectName, 'static', filename),
-      static,
+      staticAssets,
       utf8ext(extension) ? 'utf8' : undefined
     );
   });
-};
-
-module.exports = { newProject };
+}

@@ -1,42 +1,20 @@
 #! /usr/bin/env node
-const yargs = require('yargs');
-const { init } = require('./serve.js');
-const { build } = require('./build.js');
-const { newProject } = require('./init.js');
+import { init } from './serve.js';
+import { build } from './build.js';
+import { newProject } from './init.js';
+const comand = process.argv.slice(2);
 
-yargs
-  .option('n', {
-    alias: 'new',
-    describe: 'initialize a new blog project, type: spili -n your_blog_name',
-    type: 'boolean',
-    demandOption: false,
-  })
-  .option('serve', {
-    describe: 'open the blog with a local live server with hot-reload',
-    type: 'boolean',
-    demandOption: false,
-  })
-  .option('b', {
-    alias: 'build',
-    describe: 'build the blog and output the rsult in the dist folder',
-    type: 'boolean',
-    demandOption: false,
-  })
-  .help(true).argv;
-
-const comand = yargs.argv;
-
-if ((comand.new || comand.new) && comand._[0]) {
-  const projectName = comand._[0];
+if (comand[0] === 'new' && comand[1]) {
+  const projectName = comand[1];
   newProject(projectName);
 }
 
-if (comand.serve) {
+if (comand[0] === 'serve') {
   console.log('scanning project...');
-  const port = isNaN(comand._[0]) ? 3333 : comand._[0];
+  const port = isNaN(comand[1]) ? 3333 : comand[1];
   init(port);
 }
 
-if (comand.build) {
+if (comand[0] === 'build') {
   build();
 }
