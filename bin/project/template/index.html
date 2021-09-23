@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="${spili.blogDescription}" />
     <link rel="stylesheet" href="style.css" />
     <title>${spili.blogName}</title>
-  </head>
-  <body class="body">
+</head>
+
+<body class="body">
     ${spili.useComponent('navbar', {isHomePage: true})}
 
     <main>
-      ${spili.data.todos.map(article => spili.useComponent('article-preview', {articleTitle:
-      article.title, articleDescription: article.body, articleDate: 12}))}
+        ${spili.articles.map(article => spili.useComponent('article-preview', article))}
     </main>
-  </body>
-  <script src="socket.io.js"></script>
-  <script>
+</body>
+<script src="socket.io.js"></script>
+<script>
     var socket = io();
     socket.on('refresh', (msg) => {
-      console.log(msg);
-      window.location.reload(false);
+        console.log(msg);
+        window.location.reload(false);
     });
-  </script>
-  <script src="app.js"></script>
+</script>
+
 </html>

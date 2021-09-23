@@ -6,8 +6,6 @@ articleDescription: This article it's a good starting point if you are a new use
 
 This article it's only a getting started, when you are confortable with these basic notions simply delete the `welcome-to-spili.md` file inside the articles folder. If you wanna know more about Spili visit the official [documentation](#asd) page.
 
-![cat](cat.jpg)
-
 ## Create a new article
 
 Create a new article in Spili it's super easy, you only have to:

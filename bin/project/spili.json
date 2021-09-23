@@ -1,17 +1,14 @@
 {
-	"blogName": "Spili",
-	"blogDescription": "A perfect platoform for microbloggin",
-	"highlightedArticles": [],
-	"copyright": "©spili 2021",
-	"get": {
-		"todos": "https://jsonplaceholder.typicode.com/posts/",
-		"users": "https://jsonplaceholder.typicode.com/users/"
-	},
-	"build": {
-		"output": "dist",
-		"homePage": "index.html",
-		"minifyCss": true,
-		"minifyHtml": true,
-		"optimizeImages": true
-	}
+    "blogName": "Spili",
+    "blogDescription": "A perfect platoform for microbloggin",
+    "highlightedArticles": [],
+    "copyright": "©spili 2021",
+    "get": {},
+    "build": {
+        "output": "dist",
+        "homePage": "index.html",
+        "minifyCss": true,
+        "minifyHtml": true,
+        "optimizeImages": true
+    }
 }
