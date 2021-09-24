@@ -1,8 +1,8 @@
 # Spili
 
-spili it's an opinioneted Static blog generator, starting a blog has never been so easy! you can visit documentation [here](https://spili.netlify.app/) it cames out of the box with:
+spili it's an opinioneted Static blog generator, starting a blog has never been so easy! You can visit documentation [here](https://spili.netlify.app/). It cames out of the box with:
 
-- a responsive template
+- a responsive, mobile friendly template
 - a powerfull cli
 - a live server with hot reload
 
