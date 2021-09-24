@@ -16,7 +16,7 @@ spili it's an opinioneted Static blog generator, starting a blog has never been 
 
 ### inizialize a new blog
 
-`spili -n <your-blog-name>` or `spili new <your-blog-name>`
+`spili new <your-blog-name>`
 
 ## start the project
 
