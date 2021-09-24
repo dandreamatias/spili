@@ -24,6 +24,7 @@
 	},
 	"homepage": "https://github.com/dandreamatias/spili#readme",
 	"dependencies": {
+		"date-to-string-js": "0.0.4",
 		"express": "^4.17.1",
 		"html-minifier": "^4.0.0",
 		"marked": "2.1.3",

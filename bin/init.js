@@ -11,6 +11,7 @@ export function newProject(projectName) {
 
   utils.createFolder(path.join(projectName, 'template'));
   utils.createFolder(path.join(projectName, 'articles'));
+  utils.createFolder(path.join(projectName, 'articles', 'welcome-to-spili'));
   utils.createFolder(path.join(projectName, 'static'));
 
   // spili.json
@@ -19,12 +20,20 @@ export function newProject(projectName) {
 
   // articles
   const fileArticlesnames = fs.readdirSync(
-    path.join(__dirname, 'project', 'articles'),
+    path.join(__dirname, 'project', 'articles', 'welcome-to-spili'),
     (err) => {}
   );
+
   fileArticlesnames.forEach((filename) => {
-    const article = fs.readFileSync(path.join(__dirname, 'project', 'articles', filename), 'utf8');
-    fs.writeFileSync(path.join(projectName, 'articles', filename), article, 'utf8');
+    const article = fs.readFileSync(
+      path.join(__dirname, 'project', 'articles', 'welcome-to-spili', filename),
+      'utf8'
+    );
+    fs.writeFileSync(
+      path.join(projectName, 'articles', 'welcome-to-spili', filename),
+      article,
+      'utf8'
+    );
   });
 
   // theme
