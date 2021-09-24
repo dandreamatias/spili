@@ -6,6 +6,8 @@ spili it's an opinioneted Static blog generator, starting a blog has never been 
 - a powerfull cli
 - a live server with hot reload
 
+![lighthouse](lighthouse.png)
+
 ## Getting started
 
 ### install
@@ -24,6 +26,12 @@ start a local server with hot Reaload
 default port is: 3333 but you can use any port, simply specify the port after serve
 
 `spili serve 8080`
+
+## crate an article
+
+`spili article "<Name of the Article>"`
+
+---
 
 ## build the blog
 
