@@ -27,7 +27,7 @@ default port is: 3333 but you can use any port, simply specify the port after se
 
 `spili serve 8080`
 
-## crate an article
+### crate a new article
 
 `spili article "<Name of the Article>"`
 
