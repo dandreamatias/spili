@@ -59,8 +59,13 @@ export class Article {
       description: 'missing description',
       showAfterDate: false,
       highlight: false,
+      _id: today.getTime(),
     };
-    fs.writeFileSync(path.join('articles', folderName, 'info.json'), JSON.stringify(info), 'utf8');
+    fs.writeFileSync(
+      path.join('articles', folderName, 'info.json'),
+      JSON.stringify(info, null, 2),
+      'utf8'
+    );
     fs.writeFileSync(path.join('articles', folderName, 'body.md'), `${name} works!`, 'utf8');
   }
 }
