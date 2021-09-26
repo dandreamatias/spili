@@ -1,8 +1,8 @@
 # Spili
 
-spili it's an opinioneted Static blog generator, starting a blog has never been so easy! it cames out of the box with:
+spili it's an opinioneted Static blog generator, starting a blog has never been so easy! You can visit documentation [here](https://spili.netlify.app/). It cames out of the box with:
 
-- a responsive template
+- a responsive, mobile friendly template
 - a powerfull cli
 - a live server with hot reload
 
@@ -16,7 +16,7 @@ spili it's an opinioneted Static blog generator, starting a blog has never been 
 
 ### inizialize a new blog
 
-`spili -n <your-blog-name>` or `spili new <your-blog-name>`
+`spili new <your-blog-name>`
 
 ## start the project
 
@@ -27,7 +27,7 @@ default port is: 3333 but you can use any port, simply specify the port after se
 
 `spili serve 8080`
 
-## crate an article
+### crate a new article
 
 `spili article "<Name of the Article>"`
 
