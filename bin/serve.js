@@ -21,14 +21,30 @@ async function handleHTTP(req, res) {
   try {
     if (req.url.includes('socket.io')) {
       res.writeHead(200);
-      const socketPath = path.join(
-        __dirname,
-        '..',
-        'node_modules',
-        'socket.io',
-        'client-dist',
-        'socket.io.js'
-      );
+      let socketPath;
+
+      if (fs.existsSync(path.join('..', 'node_modules', 'socket.io'))) {
+        socketPath = path.join(
+          __dirname,
+          '..',
+          'node_modules',
+          'socket.io',
+          'client-dist',
+          'socket.io.js'
+        );
+      }
+
+      if (fs.existsSync(path.join('..', '..', 'node_modules', 'socket.io'))) {
+        socketPath = path.join(
+          __dirname,
+          '..',
+          '..',
+          'node_modules',
+          'socket.io',
+          'client-dist',
+          'socket.io.js'
+        );
+      }
       return res.write(fs.readFileSync(socketPath), 'utf8');
     }
     if (req.url === '/index.html' || req.url === '/') {
