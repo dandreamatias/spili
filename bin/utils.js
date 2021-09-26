@@ -42,7 +42,7 @@ export async function getSpiliObj() {
   const spili = JSON.parse(fs.readFileSync('spili.json', 'utf8'));
   spili.useComponent = useComponent(spili);
   const dirNames = fs.readdirSync('articles', (err) => {});
-  spili.articles = dirNames.map((d) => new Article([d]).header);
+  spili.articles = dirNames.map((d) => new Article([d]).header).sort((a, b) => b._id - a._id);
   spili.data = await getData(spili.get);
   return spili;
 }

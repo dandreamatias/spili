@@ -12,6 +12,9 @@
   <body class="body">
     ${spili.useComponent('navbar', {isHomePage: true})}
 
-    <main>${spili.articles.map(article => spili.useComponent('article-preview', article))}</main>
+    <main>
+      ${spili.articles.reduce((acc, article) => acc += spili.useComponent('article-preview',
+      article), '')}
+    </main>
   </body>
 </html>
